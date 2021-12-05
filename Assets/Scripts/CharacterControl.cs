@@ -5,18 +5,19 @@ using UnityEngine.AI;
 
 public class CharacterControl : MonoBehaviour
 {
+    public AudioClipsSo AudioClips;
     public Camera Cam;
     public NavMeshAgent Agent;
-    public Animator Anim = null;
-    public AudioClip[] AudioClips;
-    [SerializeField]
-    private AudioSource _audio= null;
-    private bool _isPlaying = false;
+    public Animator Anim = null;  
+    public AudioSource Audio= null;
+    public string PlayerText;
+    private string _helloText = "Hello new player!";
+
     private void Start()
     {
-        if (!_audio)
+        if (!Audio)
         {
-            _audio = GetComponent<AudioSource>();
+            Audio = GetComponent<AudioSource>();
         }
         if(!Anim)
         {
@@ -37,7 +38,8 @@ public class CharacterControl : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
-                    Debug.Log("Player hit");
+                    PlayerText = _helloText;
+                    UImanager.instance.OnPlayerClick(PlayerText);
                 }
                 else
                 {
@@ -62,7 +64,9 @@ public class CharacterControl : MonoBehaviour
         }
         else if(Agent.velocity.magnitude < 0.1f)
         {
-            _audio.Stop();
+            if (Audio.clip != AudioClips.PlayerClips[0] && Audio.clip != AudioClips.PlayerClips[1]) return;
+            else
+                Audio.Stop();
             Anim.SetFloat("MoveSpeed", 0.0f);
         }
     }
@@ -79,15 +83,15 @@ public class CharacterControl : MonoBehaviour
 
     private void PlayMudFootSteps()
     {
-        if (_audio.isPlaying && _audio.clip != AudioClips[0])
+        if (Audio.isPlaying && Audio.clip != AudioClips.PlayerClips[0])
         {
-            _audio.clip = AudioClips[0];
-            _audio.Play();       
+            Audio.clip = AudioClips.PlayerClips[0];
+            Audio.Play();       
         }
-        else if(!_audio.isPlaying)
+        else if(!Audio.isPlaying)
         {
-            _audio.clip = AudioClips[0];
-            _audio.Play();
+            Audio.clip = AudioClips.PlayerClips[0];
+            Audio.Play();
         }
         else
         {
@@ -98,15 +102,15 @@ public class CharacterControl : MonoBehaviour
 
     private void PlayWoodFootSteps()
     {
-        if (_audio.isPlaying && _audio.clip != AudioClips[1])
+        if (Audio.isPlaying && Audio.clip != AudioClips.PlayerClips[1])
         {
-            _audio.clip = AudioClips[1];
-            _audio.Play();
+            Audio.clip = AudioClips.PlayerClips[1];
+            Audio.Play();
         }
-        else if (!_audio.isPlaying)
+        else if (!Audio.isPlaying)
         {
-            _audio.clip = AudioClips[1];
-            _audio.Play();
+            Audio.clip = AudioClips.PlayerClips[1];
+            Audio.Play();
         }
         else
         {

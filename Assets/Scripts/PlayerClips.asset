@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a8a6e2bf4670a4e9a8fb154a472eb0, type: 3}
+  m_Name: PlayerClips
+  m_EditorClassIdentifier: 
+  PlayerClips:
+  - {fileID: 8300000, guid: 6f618572c72b91241b0fac608f19c290, type: 3}
+  - {fileID: 8300000, guid: f9c602255e1439644aa7befe5fbb3cca, type: 3}
