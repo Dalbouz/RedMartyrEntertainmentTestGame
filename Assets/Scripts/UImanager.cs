@@ -10,9 +10,15 @@ public class UImanager : MonoBehaviour
     public GameObject PlayerTextFrame;
     public Text PlayerText;
     [SerializeField]
-    private Transform _player;
-    [SerializeField]
     private float _offsetPlayerFrame;
+    [SerializeField]
+    private CharacterControl _player;
+    [Header("NPC")]
+    public GameObject NPCTextFrame;
+    public Text NPCText;
+    public GameObject NPCtransform;
+    [SerializeField]
+    private float _offsetNpcFrame;
 
 
     private void Awake()
@@ -45,9 +51,33 @@ public class UImanager : MonoBehaviour
             screenPoint.y += _offsetPlayerFrame;
             PlayerTextFrame.transform.position = screenPoint;
             PlayerTextFrame.SetActive(true);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             PlayerTextFrame.SetActive(false);
+            _player.SetHelloText();
+            
         }
     }
-    
+
+    public void OnNpcClick(string txt, float offset)
+    {
+        NPCText.text = txt;
+        _offsetNpcFrame = offset;
+        StartCoroutine(OnNpcClk());
+    }
+
+    IEnumerator OnNpcClk()
+    {
+        if (!NPCTextFrame.activeSelf)
+        {
+            Vector3 screenPoint = Camera.main.WorldToScreenPoint(NPCtransform.transform.position);
+            screenPoint.y += _offsetNpcFrame;
+            NPCTextFrame.transform.position = screenPoint;
+            NPCTextFrame.SetActive(true);
+            yield return new WaitForSeconds(3);
+            NPCTextFrame.SetActive(false);
+            OnPlayerClick(_player.PlayerText);
+            _player.NpcPlayerDialogFinished();
+        }
+    }
+
 }

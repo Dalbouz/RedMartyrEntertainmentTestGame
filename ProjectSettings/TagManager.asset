@@ -8,6 +8,8 @@ TagManager:
   - Mud
   - Wood
   - DoorHotSpot
+  - PlayerEyes
+  - NPC
   layers:
   - Default
   - TransparentFX

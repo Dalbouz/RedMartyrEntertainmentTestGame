@@ -12,6 +12,9 @@ public class CharacterControl : MonoBehaviour
     public AudioSource Audio= null;
     public string PlayerText;
     private string _helloText = "Hello new player!";
+    [SerializeField]
+    private float _minDistanceBetweenNPC;
+    public bool IsClickedOnNPC=false;
 
     private void Start()
     {
@@ -24,6 +27,8 @@ public class CharacterControl : MonoBehaviour
             Anim = GetComponent<Animator>();
         }
         Anim.SetBool("Grounded", true);
+
+        PlayerText = _helloText;
     }
     // Update is called once per frame
     void Update()
@@ -40,6 +45,12 @@ public class CharacterControl : MonoBehaviour
                 {
                     PlayerText = _helloText;
                     UImanager.instance.OnPlayerClick(PlayerText);
+                }
+                else if (hit.collider.gameObject.CompareTag("NPC"))
+                {
+                    IsClickedOnNPC = true;
+                    UImanager.instance.NPCtransform = hit.collider.gameObject;
+                    Agent.SetDestination(hit.point);
                 }
                 else
                 {
@@ -117,6 +128,15 @@ public class CharacterControl : MonoBehaviour
 
             return;
         }
+    }
+
+    public void NpcPlayerDialogFinished()
+    {
+        IsClickedOnNPC = false;
+    }
+    public void SetHelloText()
+    {
+        PlayerText = _helloText;
     }
 }
 
