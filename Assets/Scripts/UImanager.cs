@@ -54,6 +54,12 @@ public class UImanager : MonoBehaviour
             yield return new WaitForSeconds(3);
             PlayerTextFrame.SetActive(false);
             _player.SetHelloText();
+            if (_player.IsClickedOnNPC)
+            {
+                DialogManager.Instance.EndNpcAnimation();
+                _player.NpcPlayerDialogFinished();
+                _player.Agent.isStopped = false;
+            }
             
         }
     }
@@ -76,7 +82,6 @@ public class UImanager : MonoBehaviour
             yield return new WaitForSeconds(3);
             NPCTextFrame.SetActive(false);
             OnPlayerClick(_player.PlayerText);
-            _player.NpcPlayerDialogFinished();
         }
     }
 

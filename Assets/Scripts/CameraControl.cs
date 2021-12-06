@@ -6,9 +6,9 @@ public class CameraControl : MonoBehaviour
 {
     public GameObject Target;
     [SerializeField]
-    private float _leftEdge = -3f;
+    private float _leftEdge = -9.6f;
     [SerializeField]
-    private float _rightEdge = 3.1f;
+    private float _rightEdge = 6f;
     
     void Start()
     {
@@ -21,15 +21,15 @@ public class CameraControl : MonoBehaviour
     {
         var xPosition = Target.transform.position.x;
 
-        transform.position = new Vector3(xPosition, transform.position.y, transform.position.z);
+        transform.eulerAngles = new Vector3(0, xPosition, 0);
         
-        if(transform.position.x <= _leftEdge)
+        if(transform.rotation.y <= _leftEdge)
         {
-            transform.position = new Vector3(_leftEdge, transform.position.y, transform.position.z);
+            transform.eulerAngles =new Vector3(0, _leftEdge, 0);
         }
         else if(transform.position.x >= _rightEdge)
         {
-            transform.position = new Vector3(_rightEdge, transform.position.y, transform.position.z);
+            transform.eulerAngles = new Vector3(0, _rightEdge, 0);
         }
     }
 }
