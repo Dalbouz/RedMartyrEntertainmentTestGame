@@ -13,12 +13,16 @@ public class UImanager : MonoBehaviour
     private float _offsetPlayerFrame;
     [SerializeField]
     private CharacterControl _player;
+    [SerializeField]
+    private Transform PlayersHead;
     [Header("NPC")]
     public GameObject NPCTextFrame;
     public Text NPCText;
-    public GameObject NPCtransform;
+    public Transform NpcHeadPosition;
     [SerializeField]
     private float _offsetNpcFrame;
+    public GameObject LableHotSpotText;
+    public bool IsHovered = false;
 
 
     private void Awake()
@@ -29,10 +33,18 @@ public class UImanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsHovered)
+        {
+            Vector3 CursorPosition =Input.mousePosition;
+            CursorPosition.x -= 5;
+            LableHotSpotText.SetActive(true);
+            LableHotSpotText.transform.position = CursorPosition;
+        }
+
         if (PlayerTextFrame.activeSelf)
         {
-            Vector3 screenPoint = Camera.main.WorldToScreenPoint(_player.transform.position);
-            screenPoint.y += _offsetPlayerFrame;
+            Vector3 screenPoint = Camera.main.WorldToScreenPoint(PlayersHead.position);
+            screenPoint.y += Screen.height / _offsetPlayerFrame;
             PlayerTextFrame.transform.position = screenPoint;
         }
     }
@@ -47,17 +59,13 @@ public class UImanager : MonoBehaviour
     {
         if (!PlayerTextFrame.activeSelf)
         {
-            Vector3 screenPoint = Camera.main.WorldToScreenPoint(_player.transform.position);
-            screenPoint.y += _offsetPlayerFrame;
-            PlayerTextFrame.transform.position = screenPoint;
             PlayerTextFrame.SetActive(true);
             yield return new WaitForSeconds(3);
             PlayerTextFrame.SetActive(false);
             _player.SetHelloText();
-            if (_player.IsClickedOnNPC)
+            if (DialogManager.Instance.WantToStartDialog)
             {
-                DialogManager.Instance.EndNpcAnimation();
-                _player.NpcPlayerDialogFinished();
+                DialogManager.Instance.EndDialog();
                 _player.Agent.isStopped = false;
             }
             
@@ -75,8 +83,8 @@ public class UImanager : MonoBehaviour
     {
         if (!NPCTextFrame.activeSelf)
         {
-            Vector3 screenPoint = Camera.main.WorldToScreenPoint(NPCtransform.transform.position);
-            screenPoint.y += _offsetNpcFrame;
+            Vector3 screenPoint = Camera.main.WorldToScreenPoint(NpcHeadPosition.transform.position);
+            screenPoint.y += Screen.height / _offsetNpcFrame;
             NPCTextFrame.transform.position = screenPoint;
             NPCTextFrame.SetActive(true);
             yield return new WaitForSeconds(3);

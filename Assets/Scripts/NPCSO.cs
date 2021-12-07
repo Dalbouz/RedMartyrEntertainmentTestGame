@@ -6,5 +6,6 @@ using UnityEngine;
 public class NPCSO : ScriptableObject
 {
     public string DialogTextNPC;
+    public float OffsetTextFrame;
     public string[] PlayerAnsers;
 }

@@ -7,11 +7,11 @@ public abstract class NPC : MonoBehaviour
     protected CharacterControl Player= null;
     [SerializeField]
     protected NPCSO Npcso;
-    [SerializeField]
-    protected float OffsetNpcFrame;
     private Animator _anim;
     protected float Timer;
     protected float GoToIdleTime = 8f;
+    [SerializeField]
+    protected Transform HeadPosition;
 
     private void Awake()
     {
@@ -21,21 +21,25 @@ public abstract class NPC : MonoBehaviour
         }
         _anim = GetComponent<Animator>();
     }
-    public virtual void Update()
-    {
-        
-    }
     public virtual void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && Player.IsClickedOnNPC)
+        if(other.tag == "Player" && DialogManager.Instance.WantToStartDialog)
         {
-            DialogManager.Instance.NpcAnimator = _anim;
             Player.Agent.velocity = Vector3.zero;
             Player.Agent.isStopped = true;
             _anim.SetTrigger("dead");
             int rand = Random.Range(0, Npcso.PlayerAnsers.Length);
             Player.PlayerText = Npcso.PlayerAnsers[rand];
-            UImanager.instance.OnNpcClick(Npcso.DialogTextNPC, OffsetNpcFrame);
+            UImanager.instance.NpcHeadPosition = HeadPosition;
+            UImanager.instance.OnNpcClick(Npcso.DialogTextNPC, Npcso.OffsetTextFrame);
+        }
+    }
+
+    public virtual void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            _anim.SetTrigger("normal");
         }
     }
 }

@@ -14,7 +14,6 @@ public class CharacterControl : MonoBehaviour
     private string _helloText = "Hello new player!";
     [SerializeField]
     private float _minDistanceBetweenNPC;
-    public bool IsClickedOnNPC=false;
 
     private void Start()
     {
@@ -48,12 +47,15 @@ public class CharacterControl : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.CompareTag("NPC"))
                 {
-                    IsClickedOnNPC = true;
-                    UImanager.instance.NPCtransform = hit.collider.gameObject;
+                    DialogManager.Instance.WantToStartDialog = true;
                     Agent.SetDestination(hit.point);
                 }
                 else
                 {
+                   //if(DialogManager.Instance.WantToStartDialog)
+                   // {
+                   //     DialogManager.Instance.WantToStartDialog = false;
+                   // }
                     Agent.SetDestination(hit.point);
                 }
             }
@@ -128,11 +130,6 @@ public class CharacterControl : MonoBehaviour
 
             return;
         }
-    }
-
-    public void NpcPlayerDialogFinished()
-    {
-        IsClickedOnNPC = false;
     }
     public void SetHelloText()
     {

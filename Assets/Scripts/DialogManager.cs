@@ -5,7 +5,7 @@ using UnityEngine;
 public class DialogManager : MonoBehaviour
 {
     public static DialogManager Instance;
-    public Animator NpcAnimator;
+    public bool WantToStartDialog = false;
     private void Awake()
     {
         if (this.gameObject.activeInHierarchy) Instance = this;
@@ -17,8 +17,8 @@ public class DialogManager : MonoBehaviour
         
     }
 
-    public void EndNpcAnimation()
+    public void EndDialog()
     {
-        NpcAnimator.SetTrigger("normal");
+        WantToStartDialog = false;
     }
 }

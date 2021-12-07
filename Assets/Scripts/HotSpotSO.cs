@@ -7,4 +7,5 @@ public class HotSpotSO : ScriptableObject
 {
     public string Name;
     public string TextOnEnter;
+    public string HoverText;
 }
