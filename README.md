@@ -15,4 +15,4 @@
   <br></br>
 </div>
 
-Full gameplay can be viewed here: <a href ="https://drive.google.com/file/d/12UP9SkmjAW9xjpiDPY7p38Eh7AYzIyO2/view?usp=drive_link" target = "_blank">
+Full gameplay can be viewed here: <a href ="https://drive.google.com/file/d/12UP9SkmjAW9xjpiDPY7p38Eh7AYzIyO2/view?usp=drive_link" target = "_blank"> Video </a>
