@@ -4,6 +4,8 @@
 - different footstep sound depending on the ground
 - paralax
 - interactive NPC
+<br></br>
+Full gameplay can be viewed here: https://drive.google.com/file/d/12UP9SkmjAW9xjpiDPY7p38Eh7AYzIyO2/view?usp=drive_link
 <div align = "center">
 <img src = "https://github.com/user-attachments/assets/87f7bd6b-f21f-440a-8c00-4064bca83fd0" width = "700px">
   <br></br>
@@ -15,4 +17,4 @@
   <br></br>
 </div>
 
-Full gameplay can be viewed here: https://drive.google.com/file/d/12UP9SkmjAW9xjpiDPY7p38Eh7AYzIyO2/view?usp=drive_link
+
